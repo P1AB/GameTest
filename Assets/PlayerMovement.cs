@@ -12,7 +12,7 @@ public class PlayerMovement : MonoBehaviour
     bool jump = false;
     bool crouch = false;
     public Transform GroundCheck1;
-    public float groundCheckRadius = 0.15f;
+    public float groundCheckRadius = 0.2f;
     public LayerMask groundLayer;
     void Start()
     {
@@ -20,7 +20,7 @@ public class PlayerMovement : MonoBehaviour
     }
     public void onLanding(){
         Animator.SetBool("jump", false);
-        Debug.Log("LAND");
+       // Debug.Log("LAND");
     }
     // Update is called once per frame
     void Update()

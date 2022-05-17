@@ -18,6 +18,11 @@ public class CharacterController2D : MonoBehaviour
 	private Rigidbody2D m_Rigidbody2D;
 	private bool m_FacingRight = true;  // For determining which way the player is currently facing.
 	private Vector3 m_Velocity = Vector3.zero;
+	public int jumps = 2;
+	private int jumpCount;
+	float time1;
+	float time2;
+	float jumpAmp;
 
 	[Header("Events")]
 	[Space]
@@ -129,6 +134,24 @@ public class CharacterController2D : MonoBehaviour
 			// Add a vertical force to the player.
 			m_Grounded = false;
 			m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
+			jumpCount = 1;
+			time1 = Time.time;
+		}else if(jump && !m_Grounded && jumpCount < jumps){
+			time2 = Time.time;
+			if((time2 - time1) < 0.25){
+				Debug.Log("bruh");
+				jumpAmp = -175;
+			}else if((time2 - time1) < 0.40){
+				jumpAmp = -75;
+			}else if((time2 - time1) < 0.6){
+				jumpAmp = 0;
+			}else{
+				jumpAmp = 50;
+			}
+			m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce + jumpAmp));
+			Debug.Log(jumpAmp);
+			Debug.Log(time2 - time1);
+			jumpCount += 1;
 		}
 	}
 
