@@ -68,17 +68,17 @@ public class CharacterController2D : MonoBehaviour
 
 	public void Move(float move, bool crouch, bool jump)
 	{
-		// If crouching, check to see if the character can stand up
+		
 		if (!crouch)
 		{
-			// If the character has a ceiling preventing them from standing up, keep them crouching
+			
 			if (Physics2D.OverlapCircle(m_CeilingCheck.position, k_CeilingRadius, m_WhatIsGround))
 			{
 				crouch = true;
 			}
 		}
 
-		//only control the player if grounded or airControl is turned on
+		
 		if (m_Grounded || m_AirControl)
 		{
 
@@ -91,15 +91,15 @@ public class CharacterController2D : MonoBehaviour
 					OnCrouchEvent.Invoke(true);
 				}
 
-				// Reduce the speed by the crouchSpeed multiplier
+				// Reduce speed
 				move *= m_CrouchSpeed;
 
-				// Disable one of the colliders when crouching
+				// Disable colliders when crouching
 				if (m_CrouchDisableCollider != null)
 					m_CrouchDisableCollider.enabled = false;
 			} else
 			{
-				// Enable the collider when not crouching
+				// Enable collider when not crouching
 				if (m_CrouchDisableCollider != null)
 					m_CrouchDisableCollider.enabled = true;
 
@@ -118,20 +118,20 @@ public class CharacterController2D : MonoBehaviour
 			// If the input is moving the player right and the player is facing left...
 			if (move > 0 && !m_FacingRight)
 			{
-				// ... flip the player.
+				//flip player
 				Flip();
 			}
-			// Otherwise if the input is moving the player left and the player is facing right...
+			
 			else if (move < 0 && m_FacingRight)
 			{
-				// ... flip the player.
+				//flip the player.
 				Flip();
 			}
 		}
-		// If the player should jump...
+		
 		if (m_Grounded && jump)
 		{
-			// Add a vertical force to the player.
+			//jump
 			m_Grounded = false;
 			m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
 			jumpCount = 1;
@@ -158,10 +158,9 @@ public class CharacterController2D : MonoBehaviour
 
 	private void Flip()
 	{
-		// Switch the way the player is labelled as facing.
 		m_FacingRight = !m_FacingRight;
 
-		// Multiply the player's x local scale by -1.
+		
 		Vector3 theScale = transform.localScale;
 		theScale.x *= -1;
 		transform.localScale = theScale;
